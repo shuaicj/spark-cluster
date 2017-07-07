@@ -1,0 +1,25 @@
+version: '2.1'
+
+services:
+  master:
+    image: shuaicj/spark
+    ports:
+      - 8080:8080
+    command: ["./sbin/start-master.sh"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  slave:
+    image: shuaicj/spark
+    command: ["./sbin/start-slave.sh", "spark://master:7077"]
+    depends_on:
+      master:
+        condition: service_healthy
+  driver:
+    image: shuaicj/spark
+    depends_on:
+      master:
+        condition: service_healthy
