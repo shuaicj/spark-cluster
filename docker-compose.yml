@@ -2,10 +2,9 @@ version: '2.1'
 
 services:
   master:
-    image: shuaicj/spark
+    image: shuaicj/spark-master:2.1.1
     ports:
       - 8080:8080
-    command: ["./sbin/start-master.sh"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 5s
@@ -13,13 +12,16 @@ services:
       retries: 3
 
   slave:
-    image: shuaicj/spark
-    command: ["./sbin/start-slave.sh", "spark://master:7077"]
+    image: shuaicj/spark-slave:2.1.1
+    command: spark://master:7077
     depends_on:
       master:
         condition: service_healthy
+
   driver:
-    image: shuaicj/spark
+    image: shuaicj/spark-driver:2.1.1
+    volumes:
+      - ./sample:/spark/sample
     depends_on:
       master:
         condition: service_healthy
