@@ -22,6 +22,8 @@ services:
     image: shuaicj/spark-driver:2.1.1
     volumes:
       - ./sample:/spark/sample
+      - ~:/spark/home
+    working_dir: /spark/home
     depends_on:
       master:
         condition: service_healthy
