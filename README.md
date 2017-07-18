@@ -2,8 +2,9 @@
 
 This is a complete [Apache Spark](https://spark.apache.org) cluster based on docker-compose.
 It consists of all three types of components,
-including `Spark Master`, `Spark Slave`, `Spark Driver`.
+including one `Spark Master`, one `Spark Driver` and multiple `Spark Slave`.
 See [Spark Cluster Component](https://spark.apache.org/docs/latest/cluster-overview.html).
+> If you need multiple `Spark Master` for HA, see [shuaicj/spark-cluster-zk](https://github.com/shuaicj/spark-cluster-zk).
 
 #### Get Started
 1. Start a spark cluster containing 2 slaves, and enter `spark driver` bash.
