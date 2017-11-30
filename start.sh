@@ -7,8 +7,7 @@ usage() {
 }
 
 run() {
-    cd $DIR && docker-compose up -d master slave
-    cd $DIR && docker-compose scale slave=$1
+    cd $DIR && docker-compose up -d --scale slave=$1 master slave
     cd $DIR && docker-compose run driver
 }
 
